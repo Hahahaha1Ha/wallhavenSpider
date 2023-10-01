@@ -1,7 +1,9 @@
 import re
 def asksort():
     outcheck=True
-    stack=['000','000','0']
+    stack=['000','000','relevance']
+    dict1={"0":"relevance","1":"relevance","2":"random","3":"data_added","4":"views"
+                    ,"5":"favorites","6":"toplist","7":"hot"}
     while outcheck:
         asktext=str(input("选择筛选条件 1 -> 进入选择<一般><动漫><真人>|2 -> 进入选择<全年龄><带有一点点的不安全要素>|3 -> 进入选择<关联性|随机|添加时间|查看人数|更多喜欢|排行前十|热门>|4 -> 退出\n"))
         if asktext[0] == '1':
@@ -54,8 +56,6 @@ def asksort():
             print(stack)
         if asktext[0] == '3':
             categoies=str(input("1 -> 关联性 2 -> 随机 3 -> 最近添加 4 -> 查看人数 5 -> 更多喜欢 6 -> 排名前十 7 -> 热门 \n"))
-            dict1={"1":"relevance","2":"random","3":"data_added","4":"views"
-                    ,"5":"favorites","6":"toplist","7":"hot"}
             get=re.search(r'[1-7]',categoies).group()
             stack[2]=dict1[get]
             print(stack)
