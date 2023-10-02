@@ -33,7 +33,7 @@ def GetHtmlPack(Pages,target,sortget):
     print("已下载",len(LiFound),"张图片")
 
 def downLoad(Https):
-    DataPath="F:\python Collect\DataSpider\weget\ImageDataGet\\"
+    DataPath=""
     StrValue=Https[0]
     FinalHttp="https://w.wallhaven.cc/full/{}/wallhaven-{}.jpg".format(StrValue[-6:-4],StrValue[-6::])
     ImageData=requests.get(FinalHttp,"html.parser",stream=True)
