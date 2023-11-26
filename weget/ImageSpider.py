@@ -47,7 +47,7 @@ def GetHtmlPack(Pages, target, sortget):
 
 
 def downLoad(Https):
-    DataPath = "F:\python Collect\DataSpider\weget\ImageDataGet\\"
+    DataPath = ""
     StrValue = Https[0]
     FinalHttp = "https://w.wallhaven.cc/full/{}/wallhaven-{}.jpg".format(
         StrValue[-6:-4], StrValue[-6::])
