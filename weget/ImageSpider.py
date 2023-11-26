@@ -47,7 +47,6 @@ def GetHtmlPack(Pages, target, sortget):
 
 
 def downLoad(Https):
-<<<<<<< HEAD
     DataPath = "F:\python Collect\DataSpider\weget\ImageDataGet\\"
     StrValue = Https[0]
     FinalHttp = "https://w.wallhaven.cc/full/{}/wallhaven-{}.jpg".format(
@@ -57,14 +56,6 @@ def downLoad(Https):
                                "html.parser",
                                from_encoding="iso-8859-1")
     total1 = int(ImageData.headers.get('content-length', 0))
-=======
-    DataPath=""
-    StrValue=Https[0]
-    FinalHttp="https://w.wallhaven.cc/full/{}/wallhaven-{}.jpg".format(StrValue[-6:-4],StrValue[-6::])
-    ImageData=requests.get(FinalHttp,"html.parser",stream=True)
-    ImageData1=BeautifulSoup(ImageData.content,"html.parser",from_encoding="iso-8859-1")
-    total1=int(ImageData.headers.get('content-length',0))
->>>>>>> f82e3c6b41c598362f9074ad09571b1407af2444
     if checkHttps(ImageData1):
         Name1 = StrValue[-6::] + ".jpg"
         o = open(DataPath + Name1, 'wb')
