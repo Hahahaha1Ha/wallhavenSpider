@@ -10,7 +10,7 @@ from get_sort import asksort
 def mainControl():
     sort=asksort()
     target_1=str(input("键入你需要爬的主题"))
-    lastpages=getlastpages('https://wallhaven.cc/search?q={}&categories={}&purity={}&sorting={}'.format(str(target_1),sort[0],sort[1],sort[2]))
+    lastpages=getlastpages('https://www.whvn.cc/search?q={}&categories={}&purity={}&sorting={}'.format(str(target_1),sort[0],sort[1],sort[2]))
     print("总共有",lastpages,"页")
     page=input("选择你需要的页数")
     GetHtmlPack(page,target_1,sort)
@@ -21,13 +21,13 @@ def GetHtmlPack(Pages,target,sortget):
         lake=json.load(file)
     randomint=random.randint(1,5)
     a7="a{}".format(randomint)
-    Catch=re.compile(r'https://wallhaven.cc/w/[0-9a-z\D]{6}')
-    http1='https://wallhaven.cc/search?q={}&categories={}&purity={}&sorting={}&page={}'.format(str(target),sortget[0],sortget[1],sortget[2],str(Pages))
+    Catch=re.compile(r'https://www.whvn.cc/w/[0-9a-z\D]{6}')
+    http1='https://www.whvn.cc/search?q={}&categories={}&purity={}&sorting={}&page={}'.format(str(target),sortget[0],sortget[1],sortget[2],str(Pages))
     RequestBack=requests.get(http1,headers={"User-Agent":lake[a7]}).content
     HtmlBack=BeautifulSoup(RequestBack,'html.parser')
     LiFound=HtmlBack.find_all("a",attrs={"class":"preview","target":"_blank"})
     for i in range(0,len(LiFound)):
-        sleep(1.2)
+        sleep(1)
         downLoad(Catch.findall(str(LiFound[i])))
     
     print("已下载",len(LiFound),"张图片")
