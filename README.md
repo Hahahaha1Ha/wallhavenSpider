@@ -7,12 +7,12 @@
 
 #### 使用方法
 在使用前请先确认自己是否安装了`bs4`,`tqdm`与`requests`库
-如没请使用
+,如没请使用
 
 ```
 pip install bs4/tqdm/requests
 ```
-进行下载
+进行下载,
 在下载完后就`clone`本仓库
 ```
 git clone https://gitee.com/endlesswuya/wallhaven-spider.git
