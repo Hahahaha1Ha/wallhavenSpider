@@ -6,10 +6,16 @@ from tqdm import tqdm
 import json
 import random
 from get_sort import asksort
+from get_path import write_save_path
+import sys
+import os
 
 
 def mainControl():
     lastpages = 0
+     
+    savepath=write_save_path()
+    
     while lastpages == 0:
         sort = asksort()
         target_1 = str(input("键入你需要爬的主题"))
@@ -20,11 +26,11 @@ def mainControl():
             print("此处无图,换个筛选条件吧")
     print("总共有", lastpages, "页")
     page = input("选择你需要的页数")
-    GetHtmlPack(page, target_1, sort)
+    GetHtmlPack(page, target_1, sort,savepath)
 
 
-def GetHtmlPack(Pages, target, sortget):
-    connectfile = './DataSpider/weget/bugLake.json'
+def GetHtmlPack(Pages, target, sortget,picsavepath):
+    connectfile = getattr(sys,"_MEIPASS",os.path.dirname(os.path.abspath(__file__)))+'\\bugLake.json'
     with open(connectfile, 'r') as file:
         lake = json.load(file)
     randomint = random.randint(1, 5)
@@ -40,25 +46,30 @@ def GetHtmlPack(Pages, target, sortget):
                                     "target": "_blank"
                                 })
     for i in range(0, len(LiFound)):
-        sleep(1)
-        downLoad(Catch.findall(str(LiFound[i])))
+        sleep(1.0)
+        downLoad(Catch.findall(str(LiFound[i])),datapath=None,savepath=picsavepath)
 
     print("已下载", len(LiFound), "张图片")
 
 
-def downLoad(Https):
-    DataPath = ""
+def downLoad(Https,datapath,savepath):
+    DataPath = datapath
     StrValue = Https[0]
+    connectfile = getattr(sys,"_MEIPASS",os.path.dirname(os.path.abspath(__file__)))+'\\bugLake.json'
+    with open(connectfile, 'r') as file:
+        lake = json.load(file)
+    randomint = random.randint(1, 5)
+    a7 = "a{}".format(randomint)
     FinalHttp = "https://w.wallhaven.cc/full/{}/wallhaven-{}.jpg".format(
         StrValue[-6:-4], StrValue[-6::])
-    ImageData = requests.get(FinalHttp, "html.parser", stream=True)
+    ImageData = requests.get(FinalHttp,"html.parser",headers={"User-Agent":lake[a7]},stream=True)
     ImageData1 = BeautifulSoup(ImageData.content,
                                "html.parser",
                                from_encoding="iso-8859-1")
     total1 = int(ImageData.headers.get('content-length', 0))
     if checkHttps(ImageData1):
         Name1 = StrValue[-6::] + ".jpg"
-        o = open(DataPath + Name1, 'wb')
+        o = open(savepath+"\\"+ Name1,'wb')
         a1 = tqdm(desc=(StrValue[-6::]),
                   total=total1,
                   unit='iB',
@@ -73,7 +84,7 @@ def downLoad(Https):
             StrValue[-6:-4], StrValue[-6::])
         ImageData = requests.get(FinalHttp, "html.parser", stream=True)
         Name1 = StrValue[-6::] + ".png"
-        o = open(DataPath + Name1, 'wb')
+        o = open(savepath+"\\"+ Name1,'wb')
         a1 = tqdm(desc=(StrValue[-6::]),
                   total=total1,
                   unit='iB',
@@ -119,6 +130,5 @@ def getlastpages(https):
     else:
         finalAnswer = int(final) // 24
     return finalAnswer
-
 
 mainControl()
