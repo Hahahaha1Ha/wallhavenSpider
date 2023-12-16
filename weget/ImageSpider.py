@@ -52,13 +52,8 @@ def GetHtmlPack(Pages, target, sortget,picsavepath):
     print("已下载", len(LiFound), "张图片")
 
 
-<<<<<<< HEAD
 def downLoad(Https,datapath,savepath):
     DataPath = datapath
-=======
-def downLoad(Https):
-    DataPath = ""
->>>>>>> c861b2bc33795d2351206594d0f2894bc1448186
     StrValue = Https[0]
     connectfile = getattr(sys,"_MEIPASS",os.path.dirname(os.path.abspath(__file__)))+'\\bugLake.json'
     with open(connectfile, 'r') as file:
